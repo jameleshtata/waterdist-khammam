@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+Telugu:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 
@@ -68,7 +68,7 @@
   <a class="btn-wa wa-order" href="#" target="_blank" rel="noopener" id="sbSend"><span data-i18n="home.sendShort"></span></a>
 </div>
 
-<script src="app.js"></script>
+<script src="app.js?v=7"></script>
 <script>
 App.start('home', function () {
   var prod = App.prod;
@@ -170,10 +170,18 @@ App.start('home', function () {
       var minus = App.el('button', 'sb minus', '−'); minus.type = 'button';
       minus.setAttribute('aria-label', App.t('aria.minus', { item: name }));
       var qty = App.el('div', 'qty', String(state.q[p.id] || 0));
+      if ((state.q[p.id] || 0) > 0) row.classList.add('sel');
+      var bump = function () {
+        var q = state.q[p.id] || 0;
+        qty.textContent = String(q);
+        row.classList.toggle('sel', q > 0);
+        qty.classList.remove('pop'); void qty.offsetWidth; qty.classList.add('pop');
+        renderSummary();
+      };
       var plus = App.el('button', 'sb plus', '+'); plus.type = 'button';
       plus.setAttribute('aria-label', App.t('aria.plus', { item: name }));
-      minus.onclick = function () { state.q[p.id] = Math.max(0, (state.q[p.id] || 0) - 1); qty.textContent = String(state.q[p.id]); renderSummary(); };
-      plus.onclick = function () { state.q[p.id] = (state.q[p.id] || 0) + 1; qty.textContent = String(state.q[p.id]); renderSummary(); };
+      minus.onclick = function () { state.q[p.id] = Math.max(0, (state.q[p.id] || 0) - 1); bump(); };
+      plus.onclick = function () { state.q[p.id] = (state.q[p.id] || 0) + 1; bump(); };
       st.appendChild(minus); st.appendChild(qty); st.appendChild(plus);
       row.appendChild(st);
       box.appendChild(row);

@@ -215,8 +215,6 @@
         '<div class="legal" data-i18n="f.legal"></div>' +
         '</div></footer>';
     }
-    document.body.insertAdjacentHTML('beforeend',
-      '<a class="fab wa-link" href="#" target="_blank" rel="noopener" data-i18n-aria="aria.wa"><svg class="ico-wa" style="width:28px;height:28px"><use href="#wa"></use></svg></a>');
   }
 
   /* Fill every data-i18n, data-i18n-ph and data-i18n-aria element for the current language. */

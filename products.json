@@ -1,24 +1,125 @@
 {
   "unit": "cases",
   "brands": [
-    { "id": "copper", "label": "Tata Copper+" },
-    { "id": "himalayan", "label": "Himalayan" },
-    { "id": "gluco", "label": "Tata Gluco+" },
-    { "id": "fruski", "label": "Tata Fruski" }
+    {
+      "id": "copper",
+      "label": "Tata Copper+"
+    },
+    {
+      "id": "himalayan",
+      "label": "Himalayan"
+    },
+    {
+      "id": "gluco",
+      "label": "Tata Gluco+"
+    },
+    {
+      "id": "fruski",
+      "label": "Tata Fruski"
+    }
   ],
   "products": [
-    { "id": "cu250", "brand": "copper", "brandName": "Tata Copper+", "size": "250 ml", "note": "", "height": 60, "image": "", "labelColor": "#B87333" },
-    { "id": "cu500", "brand": "copper", "brandName": "Tata Copper+", "size": "500 ml", "note": "", "height": 76, "image": "", "labelColor": "#B87333" },
-    { "id": "cu1l", "brand": "copper", "brandName": "Tata Copper+", "size": "1 litre", "note": "", "height": 90, "image": "", "labelColor": "#B87333" },
-    { "id": "cu2l", "brand": "copper", "brandName": "Tata Copper+", "size": "2 litre", "note": "", "height": 100, "image": "", "labelColor": "#B87333" },
-
-    { "id": "him200", "brand": "himalayan", "brandName": "Himalayan Natural Mineral Water", "size": "200 ml", "note": "", "height": 56, "image": "", "labelColor": "" },
-    { "id": "him500", "brand": "himalayan", "brandName": "Himalayan Natural Mineral Water", "size": "500 ml", "note": "", "height": 76, "image": "", "labelColor": "" },
-    { "id": "him750", "brand": "himalayan", "brandName": "Himalayan Natural Mineral Water", "size": "750 ml", "note": "", "height": 84, "image": "", "labelColor": "" },
-    { "id": "him1l", "brand": "himalayan", "brandName": "Himalayan Natural Mineral Water", "size": "1 litre", "note": "", "height": 90, "image": "", "labelColor": "" },
-
-    { "id": "glu180", "brand": "gluco", "brandName": "Tata Gluco+", "size": "180 ml cup", "note": "", "shape": "cup", "height": 60, "image": "", "labelColor": "" },
-
-    { "id": "fru1", "brand": "fruski", "brandName": "Tata Fruski", "size": "Size to confirm", "note": "Set \"hidden\" to false once the size is known", "height": 76, "image": "", "labelColor": "", "hidden": true }
+    {
+      "id": "cu250",
+      "brand": "copper",
+      "brandName": "Tata Copper+",
+      "size": "250 ml",
+      "note": "",
+      "height": 60,
+      "image": "",
+      "labelColor": "#B87333"
+    },
+    {
+      "id": "cu500",
+      "brand": "copper",
+      "brandName": "Tata Copper+",
+      "size": "500 ml",
+      "note": "",
+      "height": 76,
+      "image": "",
+      "labelColor": "#B87333"
+    },
+    {
+      "id": "cu1l",
+      "brand": "copper",
+      "brandName": "Tata Copper+",
+      "size": "1 litre",
+      "note": "",
+      "height": 90,
+      "image": "",
+      "labelColor": "#B87333"
+    },
+    {
+      "id": "cu2l",
+      "brand": "copper",
+      "brandName": "Tata Copper+",
+      "size": "2 litre",
+      "note": "",
+      "height": 100,
+      "image": "",
+      "labelColor": "#B87333"
+    },
+    {
+      "id": "him200",
+      "brand": "himalayan",
+      "brandName": "Himalayan Natural Mineral Water",
+      "size": "200 ml",
+      "note": "",
+      "height": 56,
+      "image": "",
+      "labelColor": "#3B82C4"
+    },
+    {
+      "id": "him500",
+      "brand": "himalayan",
+      "brandName": "Himalayan Natural Mineral Water",
+      "size": "500 ml",
+      "note": "",
+      "height": 76,
+      "image": "",
+      "labelColor": "#3B82C4"
+    },
+    {
+      "id": "him750",
+      "brand": "himalayan",
+      "brandName": "Himalayan Natural Mineral Water",
+      "size": "750 ml",
+      "note": "",
+      "height": 84,
+      "image": "",
+      "labelColor": "#3B82C4"
+    },
+    {
+      "id": "him1l",
+      "brand": "himalayan",
+      "brandName": "Himalayan Natural Mineral Water",
+      "size": "1 litre",
+      "note": "",
+      "height": 90,
+      "image": "",
+      "labelColor": "#3B82C4"
+    },
+    {
+      "id": "glu180",
+      "brand": "gluco",
+      "brandName": "Tata Gluco+",
+      "size": "180 ml cup",
+      "note": "",
+      "shape": "cup",
+      "height": 60,
+      "image": "",
+      "labelColor": "#E8A317"
+    },
+    {
+      "id": "fru1",
+      "brand": "fruski",
+      "brandName": "Tata Fruski",
+      "size": "Size to confirm",
+      "note": "Set \"hidden\" to false once the size is known",
+      "height": 76,
+      "image": "",
+      "labelColor": "",
+      "hidden": true
+    }
   ]
 }
