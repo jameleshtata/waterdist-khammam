@@ -146,6 +146,14 @@ body:not(.has-items) .sendbar .btn-wa .ico-wa{fill:var(--wa)}
 .has-items .sendbar .btn-wa{background:linear-gradient(135deg,#0F7D41,#13A358);animation:glow 2.2s ease-in-out infinite}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(19,163,88,.5)}50%{box-shadow:0 0 0 8px rgba(19,163,88,0)}}
 
+/* open / closed status */
+.status{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:8px 14px;border-radius:14px;background:#E3F6EA;color:#0B5D33;font-weight:700;font-size:14px;line-height:1.35}
+.status .dot{width:10px;height:10px;border-radius:50%;background:#16A34A;flex:none;animation:blink 1.8s ease-in-out infinite}
+.status.closed{background:#FFF1D6;color:#7A4B00}
+.status.closed .dot{background:#E8A317;animation:none}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+textarea.i{height:auto;padding:12px 14px;line-height:1.5;resize:vertical;font-size:14px}
+
 /* footer */
 footer{margin-top:28px;background:var(--footer-bg);color:#FFFFFF;padding:22px 0}
 .f-name{font-family:'Sora',sans-serif;font-weight:800;font-size:16px;margin-bottom:4px}
@@ -183,3 +191,16 @@ footer{margin-top:28px;background:var(--footer-bg);color:#FFFFFF;padding:22px 0}
   .sendbar-t b{display:block}
   .sendbar-t span{font-size:12px;color:var(--muted)}
 }
+
+/* ---- Bold colour update (Option A) ---- */
+.intro{background:linear-gradient(135deg,#064E56 0%,#0B7A86 55%,#22C3B3 100%);margin:0 -16px;padding:26px 18px 56px;border-radius:0 0 30px 30px}
+.intro h1{color:#fff}.intro p{color:rgba(255,255,255,.9)}
+.intro .status{align-self:flex-start;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.intro .status.closed{background:#FFF1D6}
+.steps{margin-top:-34px;position:relative;box-shadow:0 10px 24px rgba(6,78,86,.18);border-color:transparent}
+.steps li:nth-child(1) b{background:#0B7A86}.steps li:nth-child(2) b{background:#16A34A}.steps li:nth-child(3) b{background:#F97316}
+.h2::after{content:'';display:block;width:40px;height:4px;border-radius:2px;background:linear-gradient(90deg,#22C3B3,#F59E0B);margin-top:8px}
+.tab.on{background:linear-gradient(135deg,#0B7A86,#12A5A8);border-color:transparent}
+.sb.plus{background:linear-gradient(135deg,#0B7A86,#12A5A8)}
+.legal-doc .intro{background:none;margin:0;padding:22px 0 0;border-radius:0}
+.legal-doc .intro h1{color:inherit}.legal-doc .intro p{color:var(--muted)}

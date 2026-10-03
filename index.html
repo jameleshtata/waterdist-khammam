@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+Telugu:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 
@@ -25,7 +25,9 @@
   <section class="intro rise">
     <h1 data-cfg="hero.headline"></h1>
     <p data-cfg="hero.subtext"></p>
+    <div id="status" class="status hidden"></div>
   </section>
+
 
   <ol class="steps rise" style="animation-delay:.08s">
     <li><b>1</b><span data-i18n="home.step1"></span></li>
@@ -68,7 +70,7 @@
   <a class="btn-wa wa-order" href="#" target="_blank" rel="noopener" id="sbSend"><span class="badge" id="sbBadge"></span><span id="sbLabel"></span></a>
 </div>
 
-<script src="app.js?v=8"></script>
+<script src="app.js?v=9"></script>
 <script>
 App.start('home', function () {
   var prod = App.prod;
@@ -78,6 +80,20 @@ App.start('home', function () {
     return products.some(function (p) { return p.brand === b.id; });
   });
   if (brands.length) state.tab = brands[0].id;
+
+  // Personal reorder link: ?items=cu500:5,cu1l:2 (product id : number of cases). Only known ids are accepted.
+  var prefilled = false;
+  (App.qs.get('items') || '').split(',').slice(0, 20).forEach(function (pair) {
+    var m = pair.match(/^([A-Za-z0-9_-]{1,20}):(\d{1,3})$/);
+    if (!m) return;
+    var p = products.filter(function (x) { return x.id === m[1]; })[0];
+    var q = parseInt(m[2], 10);
+    if (p && q > 0) { state.q[p.id] = q; prefilled = true; }
+  });
+  if (prefilled) {
+    var firstPicked = products.filter(function (x) { return state.q[x.id] > 0; })[0];
+    state.tab = firstPicked.brand;
+  }
 
   function unitOf(p) { return p.unit || prod.unit || 'cases'; }
   function unitLabel(p) {
@@ -92,10 +108,33 @@ App.start('home', function () {
 
   function renderWelcome() {
     var w = document.getElementById('welcome');
-    if (shop) {
-      w.textContent = App.t('home.welcome', { name: shop });
+    var parts = [];
+    if (shop) parts.push(App.t('home.welcome', { name: shop }));
+    if (prefilled) parts.push(App.t('home.prefilled'));
+    if (parts.length) {
+      w.textContent = parts.join(' ');
       w.classList.remove('hidden');
     }
+  }
+
+  // Open or closed message from config.json "hours", read in Indian time. Hidden until hours are filled in.
+  function renderStatus() {
+    var box = document.getElementById('status');
+    var hr = App.cfg.hours || {};
+    function toMin(s) { var m = /^(\d{1,2}):(\d{2})$/.exec(s || ''); return m ? parseInt(m[1], 10) * 60 + parseInt(m[2], 10) : null; }
+    function fmt(min) { var hh = Math.floor(min / 60), mm = min % 60, ap = hh >= 12 ? 'pm' : 'am'; hh = hh % 12 || 12; return hh + ':' + (mm < 10 ? '0' : '') + mm + ' ' + ap; }
+    var open = toMin(hr.open), close = toMin(hr.close);
+    if (open === null || close === null || !(hr.days && hr.days.length)) { box.classList.add('hidden'); return; }
+    var o = {};
+    new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false })
+      .formatToParts(new Date()).forEach(function (p) { o[p.type] = p.value; });
+    var day = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[o.weekday];
+    var now = (parseInt(o.hour, 10) % 24) * 60 + parseInt(o.minute, 10);
+    var isOpen = hr.days.indexOf(day) !== -1 && now >= open && now < close;
+    box.textContent = '';
+    box.appendChild(App.el('span', 'dot'));
+    box.appendChild(document.createTextNode(isOpen ? App.t('status.open', { t: fmt(close) }) : App.t('status.closed', { t: fmt(open) })));
+    box.className = 'status' + (isOpen ? '' : ' closed');
   }
 
   function safeImage(path) {
@@ -219,8 +258,9 @@ App.start('home', function () {
   ['shop', 'area', 'note'].forEach(function (id) { document.getElementById(id).addEventListener('input', updateLinks); });
 
   document.body.classList.add('has-bar');
-  App.rerender = function () { renderRows(); renderSummary(); renderWelcome(); };
-  renderTabs(); renderRows(); renderSummary(); renderWelcome();
+  App.rerender = function () { renderRows(); renderSummary(); renderWelcome(); renderStatus(); };
+  renderTabs(); renderRows(); renderSummary(); renderWelcome(); renderStatus();
+  setInterval(renderStatus, 60000);
 });
 </script>
 </body>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" data-theme="teal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Link maker</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+Telugu:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=9">
+</head>
+<body>
+
+<div id="chrome-top"></div>
+<div id="banner" class="hidden"></div>
+<div id="err"></div>
+
+<main class="wrap" style="max-width:640px">
+  <section class="intro rise">
+    <h1>Link maker</h1>
+    <p>For the distributor. Make a personal order link for a regular shop. The shop opens it and their usual order is already filled in. Nothing is saved anywhere: the details live only inside the link.</p>
+  </section>
+
+  <section class="card">
+    <h3>Shop</h3>
+    <label class="f"><span>Shop name</span><input class="i" id="shop" type="text" maxlength="80" placeholder="e.g. Sri Lakshmi General Stores"></label>
+    <label class="f"><span>Area (optional)</span><input class="i" id="area" type="text" maxlength="80" placeholder="e.g. Wyra Road"></label>
+  </section>
+
+  <section class="card" style="background:#FFFFFF;border:1.5px solid var(--mist2)">
+    <h3>Usual order (cases)</h3>
+    <div id="items"></div>
+  </section>
+
+  <section class="card">
+    <h3>Their link</h3>
+    <textarea class="i" id="out" rows="3" readonly></textarea>
+    <button type="button" class="btn-wa" id="copy" style="border:0;cursor:pointer"><span id="copyLabel">Copy link</span></button>
+    <a class="btn-call" id="share" href="#" target="_blank" rel="noopener">Send link on WhatsApp</a>
+    <div class="small">Pick the shop's contact in WhatsApp after tapping Send. This page is not linked from the site.</div>
+  </section>
+</main>
+
+<div id="foot"></div>
+
+<script src="app.js?v=9"></script>
+<script>
+App.start('maker', function () {
+  var products = (App.prod.products || []).filter(function (p) { return !p.hidden; });
+  var qty = {};
+
+  function build() {
+    var base = location.href.split('?')[0].split('#')[0].replace(/maker\.html$/, 'index.html');
+    var parts = [];
+    var shop = document.getElementById('shop').value.trim();
+    var area = document.getElementById('area').value.trim();
+    if (shop) parts.push('shop=' + encodeURIComponent(shop));
+    if (area) parts.push('area=' + encodeURIComponent(area));
+    var items = products.filter(function (p) { return qty[p.id] > 0; }).map(function (p) { return p.id + ':' + qty[p.id]; });
+    if (items.length) parts.push('items=' + items.join(','));
+    var link = parts.length ? base + '?' + parts.join('&') : base;
+    document.getElementById('out').value = link;
+    document.getElementById('share').href = 'https://wa.me/?text=' + encodeURIComponent(link);
+  }
+
+  var box = document.getElementById('items');
+  products.forEach(function (p) {
+    var row = App.el('div', 'row');
+    row.setAttribute('data-brand', p.brand);
+    var info = App.el('div', 'row-info');
+    info.appendChild(App.el('div', 'row-size', p.brandName + ' ' + p.size));
+    row.appendChild(info);
+    var inp = document.createElement('input');
+    inp.className = 'i'; inp.type = 'number'; inp.min = '0'; inp.max = '999'; inp.inputMode = 'numeric'; inp.placeholder = '0';
+    inp.style.width = '84px'; inp.style.textAlign = 'center';
+    inp.setAttribute('aria-label', p.brandName + ' ' + p.size);
+    inp.addEventListener('input', function () {
+      var n = parseInt(inp.value, 10);
+      qty[p.id] = n > 0 ? Math.min(n, 999) : 0;
+      row.classList.toggle('sel', qty[p.id] > 0);
+      build();
+    });
+    row.appendChild(inp);
+    box.appendChild(row);
+  });
+
+  ['shop', 'area'].forEach(function (id) { document.getElementById(id).addEventListener('input', build); });
+
+  document.getElementById('copy').addEventListener('click', function () {
+    var out = document.getElementById('out');
+    var done = function () {
+      var l = document.getElementById('copyLabel');
+      l.textContent = 'Copied';
+      setTimeout(function () { l.textContent = 'Copy link'; }, 1800);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(out.value).then(done, function () { out.select(); document.execCommand('copy'); done(); });
+    } else { out.select(); document.execCommand('copy'); done(); }
+  });
+
+  build();
+});
+</script>
+</body>
+</html>

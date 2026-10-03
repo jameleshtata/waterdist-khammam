@@ -69,7 +69,11 @@
     "f.privacy": "Privacy and legal",
     "sb.idle": "Pick your bottles",
     "sb.or": "or chat with us first",
-    "home.chat": "Chat on WhatsApp"
+    "home.chat": "Chat on WhatsApp",
+    "home.prefilled": "Your usual order is filled in. Change anything, then send.",
+    "status.open": "Open now · until {t}",
+    "status.closed": "Closed now · orders sent now are answered from {t}",
+    "page.maker": "Link maker"
   },
   "te": {
     "nav.home": "హోమ్",
@@ -141,6 +145,9 @@
     "f.privacy": "ప్రైవసీ, చట్టపరమైన వివరాలు",
     "sb.idle": "బాటిళ్లు ఎంచుకోండి",
     "sb.or": "లేదా ముందు మాతో చాట్ చేయండి",
-    "home.chat": "వాట్సాప్‌లో చాట్ చేయండి"
+    "home.chat": "వాట్సాప్‌లో చాట్ చేయండి",
+    "home.prefilled": "మీ రెగ్యులర్ ఆర్డర్ నింపబడింది. ఏదైనా మార్చి, తర్వాత పంపండి.",
+    "status.open": "ఇప్పుడు తెరిచి ఉంది · {t} వరకు",
+    "status.closed": "ఇప్పుడు మూసి ఉంది · ఇప్పుడు పంపిన ఆర్డర్లకు {t} నుండి సమాధానం"
   }
 }
