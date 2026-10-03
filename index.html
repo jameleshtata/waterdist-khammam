@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+Telugu:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
@@ -65,10 +65,10 @@
 
 <div class="sendbar" id="sendbar">
   <div class="sendbar-t"><b id="sbCount"></b><span id="sbItems"></span></div>
-  <a class="btn-wa wa-order" href="#" target="_blank" rel="noopener" id="sbSend"><span data-i18n="home.sendShort"></span></a>
+  <a class="btn-wa wa-order" href="#" target="_blank" rel="noopener" id="sbSend"><span class="badge" id="sbBadge"></span><span id="sbLabel"></span></a>
 </div>
 
-<script src="app.js?v=7"></script>
+<script src="app.js?v=8"></script>
 <script>
 App.start('home', function () {
   var prod = App.prod;
@@ -113,7 +113,7 @@ App.start('home', function () {
       '\n\nItems:\n' + (lines.join('\n') || '-') +
       '\n\nNotes: ' + (document.getElementById('note').value.trim() || '-') +
       '\n\nPlease confirm the price and delivery time.';
-    var href = App.waBase() + encodeURIComponent(text);
+    var href = App.waBase() + encodeURIComponent(lines.length ? text : "Hello, I'd like to place an order.");
     document.querySelectorAll('.wa-order').forEach(function (a) { a.href = href; });
   }
 
@@ -134,8 +134,18 @@ App.start('home', function () {
     });
     if (!items) box.appendChild(App.el('div', 'sum-empty', App.t('home.empty')));
     document.body.classList.toggle('has-items', items > 0);
-    document.getElementById('sbCount').textContent = App.t(total === 1 ? 'sel.case.one' : 'sel.case.many', { n: total });
-    document.getElementById('sbItems').textContent = App.t(items === 1 ? 'sel.item.one' : 'sel.item.many', { n: items });
+    var badge = document.getElementById('sbBadge');
+    if (items > 0) {
+      document.getElementById('sbCount').textContent = App.t(total === 1 ? 'sel.case.one' : 'sel.case.many', { n: total });
+      document.getElementById('sbItems').textContent = App.t(items === 1 ? 'sel.item.one' : 'sel.item.many', { n: items });
+      document.getElementById('sbLabel').textContent = App.t('home.sendShort');
+      if (badge.textContent !== String(total)) { badge.textContent = String(total); badge.classList.remove('pop'); void badge.offsetWidth; badge.classList.add('pop'); }
+    } else {
+      document.getElementById('sbCount').textContent = App.t('sb.idle');
+      document.getElementById('sbItems').textContent = App.t('sb.or');
+      document.getElementById('sbLabel').textContent = App.t('home.chat');
+      badge.textContent = '';
+    }
     updateLinks();
   }
 
@@ -147,6 +157,7 @@ App.start('home', function () {
     list.forEach(function (p) {
       var name = p.brandName + ' ' + p.size;
       var row = App.el('div', 'row');
+      row.setAttribute('data-brand', p.brand);
       var th = App.el('div', 'thumb');
       var fallback = function () {
         th.textContent = '';
@@ -207,6 +218,7 @@ App.start('home', function () {
 
   ['shop', 'area', 'note'].forEach(function (id) { document.getElementById(id).addEventListener('input', updateLinks); });
 
+  document.body.classList.add('has-bar');
   App.rerender = function () { renderRows(); renderSummary(); renderWelcome(); };
   renderTabs(); renderRows(); renderSummary(); renderWelcome();
 });

@@ -66,7 +66,10 @@
     "f.addr": "Address",
     "f.fssai": "FSSAI licence no.",
     "f.legal": "Product names and brand marks belong to their owners. No brand logos or product photos are used unless supplied by the brand owner.",
-    "f.privacy": "Privacy and legal"
+    "f.privacy": "Privacy and legal",
+    "sb.idle": "Pick your bottles",
+    "sb.or": "or chat with us first",
+    "home.chat": "Chat on WhatsApp"
   },
   "te": {
     "nav.home": "హోమ్",
@@ -135,6 +138,9 @@
     "f.addr": "అడ్రస్",
     "f.fssai": "FSSAI లైసెన్స్ నం.",
     "f.legal": "ఉత్పత్తి పేర్లు, బ్రాండ్ గుర్తులు వాటి యజమానులకు చెందినవి. బ్రాండ్ యజమాని ఇస్తే తప్ప లోగోలు, ఫోటోలు వాడము.",
-    "f.privacy": "ప్రైవసీ, చట్టపరమైన వివరాలు"
+    "f.privacy": "ప్రైవసీ, చట్టపరమైన వివరాలు",
+    "sb.idle": "బాటిళ్లు ఎంచుకోండి",
+    "sb.or": "లేదా ముందు మాతో చాట్ చేయండి",
+    "home.chat": "వాట్సాప్‌లో చాట్ చేయండి"
   }
 }
