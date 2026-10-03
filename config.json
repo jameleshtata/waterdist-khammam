@@ -4,19 +4,19 @@
   "businessName": "[DISTRIBUTOR NAME]",
   "tagline": "Water supply · Khammam",
   "region": "Khammam, Telangana",
-  "whatsappNumber": "919399956892",
+  "whatsappNumber": "91XXXXXXXXXX",
   "phoneDisplay": "[PHONE NUMBER]",
   "address": "[SHOP ADDRESS]",
   "orderHours": "[CONFIRM]",
   "fssai": "[CONFIRM]",
-  "authorisedText": "Authorised Tata Water distributor [CONFIRM authorisation wording]",
+  "authorisedText": "Tata Water distributor [CONFIRM authorisation wording]",
   "notice": "",
   "hero": {
-    "headline": "Bulk drinking water for shops and events in Khammam",
-    "subtext": "Bottles delivered in cases for shops, functions and offices. Tell us what you need on WhatsApp and we will confirm quantity, price and delivery time."
+    "headline": "Order water for your shop or event",
+    "subtext": "Choose your bottles and send the order on WhatsApp. We confirm price and delivery."
   },
   "officialLink": {
-    "label": "Learn more on the official Tata Copper+ page",
+    "label": "Official Tata Copper+ page",
     "url": "https://www.tataconsumer.com/brands/water/tata-copper-plus"
   },
   "planner": {

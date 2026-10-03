@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" data-theme="teal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event planner | Khammam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-title="Event planner">
+
+<div id="chrome-top"></div>
+<div id="banner" class="hidden"></div>
+<div id="err"></div>
+
+<main class="wrap" style="max-width:640px">
+  <section class="intro rise">
+    <h1>How much water does your event need?</h1>
+    <p>Enter the number of guests and how long it runs. We confirm the final quantity on WhatsApp.</p>
+  </section>
+
+  <label class="f" style="margin-top:22px">Number of guests
+    <input class="i" id="guests" type="number" min="1" inputmode="numeric" placeholder="e.g. 150" style="height:52px;font-size:18px;font-weight:700">
+  </label>
+
+  <div style="margin-top:16px;font-size:14px;font-weight:700">How long?</div>
+  <div class="tabs" id="durTabs" style="flex-wrap:wrap;overflow:visible;margin-top:8px"></div>
+
+  <div class="plan-card">
+    <div class="plan-lab">Suggested starting quantity</div>
+    <div id="planOut"></div>
+  </div>
+  <p class="small" id="planNote" style="margin-top:12px"></p>
+</main>
+
+<div id="foot"></div>
+
+<script src="app.js"></script>
+<script>
+App.start('planner', function () {
+  var pl = App.cfg.planner || {};
+  var durs = pl.durations || [];
+  var state = { dur: durs.length ? durs[0].id : '', guests: '' };
+
+  function render() {
+    var box = document.getElementById('durTabs');
+    box.textContent = '';
+    durs.forEach(function (d) {
+      var b = App.el('button', 'tab' + (state.dur === d.id ? ' on' : ''), d.label);
+      b.type = 'button';
+      b.onclick = function () { state.dur = d.id; render(); };
+      box.appendChild(b);
+    });
+    document.getElementById('planNote').textContent = pl.note || '';
+
+    var out = document.getElementById('planOut');
+    out.textContent = '';
+    var g = parseInt(state.guests, 10);
+    var d = durs.filter(function (x) { return x.id === state.dur; })[0];
+    if (!(g > 0) || !d) {
+      out.appendChild(App.el('div', 'plan-sub', 'Enter the number of guests to see a suggested quantity.'));
+      return;
+    }
+    var bottles = g * d.perGuest;
+    var label = pl.bottleLabel || '500 ml';
+    out.appendChild(App.el('div', 'plan-big', String(bottles)));
+    out.appendChild(App.el('div', 'plan-sub', 'bottles of ' + label + ' for ' + g + ' guests, ' + d.text));
+    var text = "Hello, I'm planning an event.\nGuests: " + g + '\nDuration: ' + d.text + '\nEstimate: about ' + bottles + ' bottles of ' + label + '\n\nPlease confirm quantity, price and delivery.';
+    var a = App.el('a', 'btn-wa');
+    a.href = App.waBase() + encodeURIComponent(text);
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.style.marginTop = '14px';
+    a.appendChild(App.waIcon());
+    a.appendChild(document.createTextNode('Send this plan on WhatsApp'));
+    out.appendChild(a);
+  }
+
+  document.getElementById('guests').addEventListener('input', function (e) { state.guests = e.target.value; render(); });
+  render();
+});
+</script>
+</body>
+</html>
