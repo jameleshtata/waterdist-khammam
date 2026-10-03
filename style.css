@@ -204,3 +204,22 @@ footer{margin-top:28px;background:var(--footer-bg);color:#FFFFFF;padding:22px 0}
 .sb.plus{background:linear-gradient(135deg,#0B7A86,#12A5A8)}
 .legal-doc .intro{background:none;margin:0;padding:22px 0 0;border-radius:0}
 .legal-doc .intro h1{color:inherit}.legal-doc .intro p{color:var(--muted)}
+
+/* ---- Motion (all switched off by the reduced-motion rule above) ---- */
+.intro{position:relative;overflow:hidden;background-size:160% 160%;animation:drift 14s ease-in-out infinite alternate}
+.intro>*{position:relative;z-index:1}
+.intro::before,.intro::after{content:'';position:absolute;inset:0;pointer-events:none;background-repeat:repeat-y}
+.intro::before{background-image:radial-gradient(circle at 14% 50%,rgba(255,255,255,.22) 0 5px,transparent 6px),radial-gradient(circle at 46% 20%,rgba(255,255,255,.16) 0 8px,transparent 9px),radial-gradient(circle at 82% 70%,rgba(255,255,255,.2) 0 4px,transparent 5px);background-size:100% 170px;animation:bub 9s linear infinite}
+.intro::after{background-image:radial-gradient(circle at 28% 40%,rgba(255,255,255,.14) 0 10px,transparent 11px),radial-gradient(circle at 66% 85%,rgba(255,255,255,.2) 0 6px,transparent 7px),radial-gradient(circle at 92% 25%,rgba(255,255,255,.15) 0 5px,transparent 6px);background-size:100% 230px;animation:bub 13s linear infinite}
+.legal-doc .intro::before,.legal-doc .intro::after{display:none}
+@keyframes bub{from{background-position:0 0}to{background-position:0 -230px}}
+@keyframes drift{from{background-position:0% 40%}to{background-position:100% 60%}}
+.brand svg{animation:bob 3.2s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px) scale(1.06)}}
+.steps li{animation:rise .55s ease both}
+.steps li:nth-child(1){animation-delay:.25s}.steps li:nth-child(2){animation-delay:.4s}.steps li:nth-child(3){animation-delay:.55s}
+.rows .row{animation:rise .4s ease both}
+.rows .row:nth-child(2){animation-delay:.07s}.rows .row:nth-child(3){animation-delay:.14s}.rows .row:nth-child(4){animation-delay:.21s}
+.wa-icon{animation:ring 5s ease-in-out infinite;transform-origin:50% 60%}
+@keyframes ring{0%,86%,100%{transform:rotate(0)}89%{transform:rotate(-12deg)}92%{transform:rotate(10deg)}95%{transform:rotate(-6deg)}98%{transform:rotate(3deg)}}
+.tab{transition:background .2s,color .2s,transform .15s}.tab:active,.sb:active{transform:scale(.94)}
