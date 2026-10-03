@@ -1,0 +1,31 @@
+{
+  "theme": "teal",
+  "draftMode": true,
+  "businessName": "[DISTRIBUTOR NAME]",
+  "tagline": "Water supply · Khammam",
+  "region": "Khammam, Telangana",
+  "whatsappNumber": "91XXXXXXXXXX",
+  "phoneDisplay": "[PHONE NUMBER]",
+  "address": "[SHOP ADDRESS]",
+  "orderHours": "[CONFIRM]",
+  "fssai": "[CONFIRM]",
+  "authorisedText": "Authorised Tata Water distributor [CONFIRM authorisation wording]",
+  "notice": "",
+  "hero": {
+    "headline": "Bulk drinking water for shops and events in Khammam",
+    "subtext": "Bottles delivered in cases for shops, functions and offices. Tell us what you need on WhatsApp and we will confirm quantity, price and delivery time."
+  },
+  "officialLink": {
+    "label": "Learn more on the official Tata Copper+ page",
+    "url": "https://www.tataconsumer.com/brands/water/tata-copper-plus"
+  },
+  "planner": {
+    "bottleLabel": "500 ml",
+    "durations": [
+      { "id": "short", "label": "Up to 3 hours", "text": "up to 3 hours", "perGuest": 1 },
+      { "id": "half", "label": "Half day", "text": "half day", "perGuest": 2 },
+      { "id": "full", "label": "Full day", "text": "full day", "perGuest": 3 }
+    ],
+    "note": "Sample rule: 1, 2 or 3 bottles per guest depending on duration. The distributor replaces these numbers with his own."
+  }
+}
