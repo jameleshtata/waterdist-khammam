@@ -2,33 +2,57 @@
   "theme": "teal",
   "draftMode": true,
   "businessName": "[DISTRIBUTOR NAME]",
-  "tagline": "Water supply · Khammam",
-  "region": "Khammam, Telangana",
+  "tagline": { "en": "Water supply · Khammam", "te": "నీటి సరఫరా · ఖమ్మం" },
+  "region": { "en": "Khammam, Telangana", "te": "ఖమ్మం, తెలంగాణ" },
   "whatsappNumber": "91XXXXXXXXXX",
   "callNumber": "",
   "phoneDisplay": "[PHONE NUMBER]",
-  "deliveryNote": "Delivery in Khammam town. [CONFIRM areas, minimum order and order cut-off time]",
-  "priceNote": "Prices are not listed here. Drop us a message on WhatsApp and we confirm the price before you pay.",
   "address": "[SHOP ADDRESS]",
   "orderHours": "[CONFIRM]",
   "fssai": "[CONFIRM]",
-  "authorisedText": "Tata Water distributor [CONFIRM authorisation wording]",
+  "authorisedText": {
+    "en": "Tata Water distributor [CONFIRM authorisation wording]",
+    "te": "టాటా వాటర్ పంపిణీదారు [CONFIRM]"
+  },
   "notice": "",
   "hero": {
-    "headline": "Order water for your shop or event",
-    "subtext": "Choose your bottles and send the order on WhatsApp. We confirm price and delivery."
+    "headline": { "en": "Order water for your shop or event", "te": "మీ షాప్ లేదా ఫంక్షన్ కోసం నీళ్లు ఆర్డర్ చేయండి" },
+    "subtext": {
+      "en": "Choose your bottles and send the order on WhatsApp. We confirm price and delivery.",
+      "te": "మీ బాటిళ్లు ఎంచుకుని వాట్సాప్‌లో ఆర్డర్ పంపండి. ధర, డెలివరీ మేము నిర్ధారిస్తాము."
+    }
+  },
+  "deliveryNote": {
+    "en": "Delivery in Khammam town. [CONFIRM areas, minimum order and order cut-off time]",
+    "te": "ఖమ్మం పట్టణంలో డెలివరీ. [CONFIRM ఏరియాలు, కనీస ఆర్డర్, ఆర్డర్ చివరి సమయం]"
+  },
+  "priceNote": {
+    "en": "Prices are not listed here. Drop us a message on WhatsApp and we confirm the price before you pay.",
+    "te": "ధరలు ఇక్కడ ఇవ్వలేదు. వాట్సాప్‌లో మెసేజ్ చేయండి, చెల్లించే ముందు ధర నిర్ధారిస్తాము."
   },
   "officialLink": {
-    "label": "Official Tata Copper+ page",
+    "label": { "en": "Official Tata Copper+ page", "te": "అధికారిక టాటా కాపర్+ పేజీ" },
     "url": "https://www.tataconsumer.com/brands/water/tata-copper-plus"
+  },
+  "privacy": {
+    "updated": "3 October 2026",
+    "retention": "[CONFIRM how long order chats and delivery records are kept]",
+    "responseTime": "[CONFIRM number of days]",
+    "returnsNote": "[CONFIRM replacement or refund terms and the time limit to report a problem]",
+    "grievanceName": "[NAME OF PERSON HANDLING COMPLAINTS]",
+    "grievancePhone": "[PHONE NUMBER]",
+    "grievanceEmail": "[EMAIL ADDRESS]"
   },
   "planner": {
     "bottleLabel": "500 ml",
     "durations": [
-      { "id": "short", "label": "Up to 3 hours", "text": "up to 3 hours", "perGuest": 1 },
-      { "id": "half", "label": "Half day", "text": "half day", "perGuest": 2 },
-      { "id": "full", "label": "Full day", "text": "full day", "perGuest": 3 }
+      { "id": "short", "label": { "en": "Up to 3 hours", "te": "3 గంటల వరకు" }, "text": "up to 3 hours", "perGuest": 1 },
+      { "id": "half", "label": { "en": "Half day", "te": "అర్ధ రోజు" }, "text": "half day", "perGuest": 2 },
+      { "id": "full", "label": { "en": "Full day", "te": "రోజంతా" }, "text": "full day", "perGuest": 3 }
     ],
-    "note": "Sample rule: 1, 2 or 3 bottles per guest depending on duration. The distributor replaces these numbers with his own."
+    "note": {
+      "en": "Sample rule: 1, 2 or 3 bottles per guest depending on duration. The distributor replaces these numbers with his own.",
+      "te": "నమూనా నియమం: వ్యవధిని బట్టి ఒక్కొక్కరికి 1, 2 లేదా 3 బాటిళ్లు. పంపిణీదారు తన సొంత సంఖ్యలు పెడతారు."
+    }
   }
 }

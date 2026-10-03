@@ -6,6 +6,8 @@ Files
 index.html     Home page with ordering. You do not need to edit this.
 videos.html    Videos page.
 planner.html   Event planner page.
+privacy.html   Privacy and legal page (needs your details filled in, see below).
+lang.json      All fixed text in English and Telugu. Edit a line to change a word.
 app.js         Shared code. You do not need to edit this.
 style.css      Colours and layout.
 config.json    Business name, WhatsApp number, contact details, theme, planner rule.
@@ -85,3 +87,25 @@ Before going live
 - Get the distributor's permission from Tata for the wording "Authorised
   Tata Water distributor" and for any logos or photos.
 - Fill in the FSSAI licence number.
+
+English and Telugu
+------------------
+The EN | Telugu switch in the header changes the whole page. The choice is kept
+only in the visitor's browser for that visit.
+- Fixed text (buttons, labels) is in lang.json.
+- Business text in config.json can be plain text, or { "en": "...", "te": "..." }
+  for two languages. Plain text shows in both.
+- Customers can type their shop name, address and notes in Telugu or English.
+- The WhatsApp message that opens is always written in English so the
+  distributor can read it; what the customer typed is put in exactly as typed.
+- Have a Telugu speaker check lang.json and config.json before launch.
+
+Privacy and legal page
+----------------------
+privacy.html is a plain-language template written for this site, based on
+India's Digital Personal Data Protection Act, 2023 and the Consumer Protection
+Act, 2019. It is not legal advice. Before launch:
+- Fill the "privacy" section in config.json (every [CONFIRM] value).
+- Have a lawyer or CA read it once, including how the DPDP Rules are phased in.
+- Check it still matches what the site does if you add analytics or forms.
+The page is English, with a short Telugu summary shown when Telugu is selected.

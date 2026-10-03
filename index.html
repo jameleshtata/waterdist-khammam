@@ -11,10 +11,10 @@
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+Telugu:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body data-title="Order water">
+<body>
 
 <div id="chrome-top"></div>
 <div id="banner" class="hidden"></div>
@@ -28,35 +28,36 @@
   </section>
 
   <ol class="steps rise" style="animation-delay:.08s">
-    <li><b>1</b>Choose bottles</li>
-    <li><b>2</b>Send on WhatsApp</li>
-    <li><b>3</b>We deliver</li>
+    <li><b>1</b><span data-i18n="home.step1"></span></li>
+    <li><b>2</b><span data-i18n="home.step2"></span></li>
+    <li><b>3</b><span data-i18n="home.step3"></span></li>
   </ol>
 
   <p class="price-note" style="margin-top:14px" data-cfg="deliveryNote" data-hide-empty></p>
 
-  <h2 class="h2">Choose your bottles</h2>
+  <h2 class="h2" data-i18n="home.choose"></h2>
   <p class="price-note" data-cfg="priceNote"></p>
   <div class="tabs" id="tabs" role="tablist"></div>
   <div class="rows" id="rows"></div>
 
   <section class="card">
-    <h3>Your details</h3>
-    <label class="f">Shop or event name<input class="i" id="shop" type="text" placeholder="e.g. Sri Lakshmi General Stores" autocomplete="organization"></label>
-    <label class="f">Delivery address or area<input class="i" id="area" type="text" placeholder="Street, landmark, locality" autocomplete="street-address"></label>
-    <label class="f">Date needed and notes<input class="i" id="note" type="text" placeholder="e.g. Function on Saturday, 6 pm"></label>
+    <h3 data-i18n="home.details"></h3>
+    <label class="f"><span data-i18n="home.shop"></span><input class="i" id="shop" type="text" maxlength="80" data-i18n-ph="home.shop.ph" autocomplete="organization"></label>
+    <label class="f"><span data-i18n="home.area"></span><input class="i" id="area" type="text" maxlength="80" data-i18n-ph="home.area.ph" autocomplete="street-address"></label>
+    <label class="f"><span data-i18n="home.note"></span><input class="i" id="note" type="text" maxlength="120" data-i18n-ph="home.note.ph"></label>
   </section>
 
   <section class="card" style="background:#FFFFFF;border:1.5px solid var(--mist2)">
-    <h3>Your order</h3>
+    <h3 data-i18n="home.order"></h3>
     <div id="sumList"></div>
-    <a class="btn-wa wa-order wa-order-inline" href="#" target="_blank" rel="noopener" id="inlineSend">Send order on WhatsApp</a>
-    <div class="small">WhatsApp opens with your order already written. Price, availability and delivery time are confirmed in the chat.</div>
+    <a class="btn-wa wa-order wa-order-inline" href="#" target="_blank" rel="noopener" id="inlineSend"><span data-i18n="home.send"></span></a>
+    <div class="small" data-i18n="home.sendnote"></div>
+    <div class="small"><span data-i18n="home.consent"></span> <a href="privacy.html" data-i18n="f.privacy"></a></div>
   </section>
 
   <ul class="linklist">
-    <li><a href="planner.html"><div><b>Planning an event?</b><span>Find out how much water you need</span></div><svg viewBox="0 0 24 24"><path d="M9 6 L15 12 L9 18"></path></svg></a></li>
-    <li><a href="videos.html"><div><b>Watch videos</b><span>Brand adverts and product videos</span></div><svg viewBox="0 0 24 24"><path d="M9 6 L15 12 L9 18"></path></svg></a></li>
+    <li><a href="planner.html"><div><b data-i18n="home.planner.t"></b><span data-i18n="home.planner.s"></span></div><svg viewBox="0 0 24 24"><path d="M9 6 L15 12 L9 18"></path></svg></a></li>
+    <li><a href="videos.html"><div><b data-i18n="home.videos.t"></b><span data-i18n="home.videos.s"></span></div><svg viewBox="0 0 24 24"><path d="M9 6 L15 12 L9 18"></path></svg></a></li>
   </ul>
 </main>
 
@@ -64,13 +65,13 @@
 
 <div class="sendbar" id="sendbar">
   <div class="sendbar-t"><b id="sbCount"></b><span id="sbItems"></span></div>
-  <a class="btn-wa wa-order" href="#" target="_blank" rel="noopener" id="sbSend">Send on WhatsApp</a>
+  <a class="btn-wa wa-order" href="#" target="_blank" rel="noopener" id="sbSend"><span data-i18n="home.sendShort"></span></a>
 </div>
 
 <script src="app.js"></script>
 <script>
 App.start('home', function () {
-  var cfg = App.cfg, prod = App.prod;
+  var prod = App.prod;
   var state = { q: {}, tab: '' };
   var products = (prod.products || []).filter(function (p) { return !p.hidden; });
   var brands = (prod.brands || []).filter(function (b) {
@@ -79,21 +80,30 @@ App.start('home', function () {
   if (brands.length) state.tab = brands[0].id;
 
   function unitOf(p) { return p.unit || prod.unit || 'cases'; }
-
-  // Welcome strip and prefilled details from a personal link: ?shop=Name&area=Place
-  var shop = App.clean(App.qs.get('shop')), area = App.clean(App.qs.get('area'));
-  if (shop) {
-    document.getElementById('shop').value = shop;
-    var w = document.getElementById('welcome');
-    w.textContent = 'Welcome, ' + shop + '. Your order form is ready.';
-    w.classList.remove('hidden');
+  function unitLabel(p) {
+    var u = unitOf(p), k = 'unit.' + u, tr = App.t(k);
+    return tr === k ? u : tr;
   }
+
+  // Personal link: ?shop=Name&area=Place fills the form. Telugu or English names both work.
+  var shop = App.clean(App.qs.get('shop')), area = App.clean(App.qs.get('area'));
+  if (shop) document.getElementById('shop').value = shop;
   if (area) document.getElementById('area').value = area;
+
+  function renderWelcome() {
+    var w = document.getElementById('welcome');
+    if (shop) {
+      w.textContent = App.t('home.welcome', { name: shop });
+      w.classList.remove('hidden');
+    }
+  }
 
   function safeImage(path) {
     return typeof path === 'string' && /^images\/[A-Za-z0-9._ -]+\.(png|jpe?g|webp|gif|svg)$/i.test(path) && path.indexOf('..') === -1;
   }
 
+  // The message that opens in WhatsApp is always written in English so the distributor can read it
+  // easily. What the customer typed (in Telugu or English) is put in as typed.
   function updateLinks() {
     var lines = products.filter(function (p) { return (state.q[p.id] || 0) > 0; }).map(function (p) {
       return state.q[p.id] + ' ' + unitOf(p) + ' x ' + p.brandName + ' ' + p.size;
@@ -117,15 +127,15 @@ App.start('home', function () {
         total += q; items += 1;
         var line = App.el('div', 'sum-line');
         line.appendChild(App.el('span', '', p.brandName + ' ' + p.size));
-        var b = App.el('span', '', q + ' ' + unitOf(p)); b.style.fontWeight = '700';
+        var b = App.el('span', '', q + ' ' + unitLabel(p)); b.style.fontWeight = '700';
         line.appendChild(b);
         box.appendChild(line);
       }
     });
-    if (!items) box.appendChild(App.el('div', 'sum-empty', 'Nothing selected yet. Use the + buttons above.'));
+    if (!items) box.appendChild(App.el('div', 'sum-empty', App.t('home.empty')));
     document.body.classList.toggle('has-items', items > 0);
-    document.getElementById('sbCount').textContent = total + (total === 1 ? ' case' : ' cases') + ' selected';
-    document.getElementById('sbItems').textContent = items + (items === 1 ? ' item' : ' items');
+    document.getElementById('sbCount').textContent = App.t(total === 1 ? 'sel.case.one' : 'sel.case.many', { n: total });
+    document.getElementById('sbItems').textContent = App.t(items === 1 ? 'sel.item.one' : 'sel.item.many', { n: items });
     updateLinks();
   }
 
@@ -133,8 +143,9 @@ App.start('home', function () {
     var box = document.getElementById('rows');
     box.textContent = '';
     var list = products.filter(function (p) { return p.brand === state.tab; });
-    if (!list.length) box.appendChild(App.el('div', 'empty', 'No products to show.'));
+    if (!list.length) box.appendChild(App.el('div', 'empty', App.t('home.noprod')));
     list.forEach(function (p) {
+      var name = p.brandName + ' ' + p.size;
       var row = App.el('div', 'row');
       var th = App.el('div', 'thumb');
       var fallback = function () {
@@ -143,7 +154,7 @@ App.start('home', function () {
       };
       if (safeImage(p.image)) {
         var img = new Image();
-        img.alt = p.brandName + ' ' + p.size;
+        img.alt = name;
         img.loading = 'lazy';
         img.onerror = fallback;
         img.src = p.image;
@@ -157,10 +168,10 @@ App.start('home', function () {
       row.appendChild(info);
       var st = App.el('div', 'stepper');
       var minus = App.el('button', 'sb minus', '−'); minus.type = 'button';
-      minus.setAttribute('aria-label', 'Fewer ' + unitOf(p) + ' of ' + p.brandName + ' ' + p.size);
+      minus.setAttribute('aria-label', App.t('aria.minus', { item: name }));
       var qty = App.el('div', 'qty', String(state.q[p.id] || 0));
       var plus = App.el('button', 'sb plus', '+'); plus.type = 'button';
-      plus.setAttribute('aria-label', 'More ' + unitOf(p) + ' of ' + p.brandName + ' ' + p.size);
+      plus.setAttribute('aria-label', App.t('aria.plus', { item: name }));
       minus.onclick = function () { state.q[p.id] = Math.max(0, (state.q[p.id] || 0) - 1); qty.textContent = String(state.q[p.id]); renderSummary(); };
       plus.onclick = function () { state.q[p.id] = (state.q[p.id] || 0) + 1; qty.textContent = String(state.q[p.id]); renderSummary(); };
       st.appendChild(minus); st.appendChild(qty); st.appendChild(plus);
@@ -183,11 +194,13 @@ App.start('home', function () {
     if (brands.length < 2) box.classList.add('hidden');
   }
 
-  // Add the WhatsApp icon to the send buttons
+  // WhatsApp icon on the send buttons (the text sits in a span so translating keeps the icon)
   document.querySelectorAll('.wa-order').forEach(function (a) { a.insertBefore(App.waIcon(), a.firstChild); });
 
   ['shop', 'area', 'note'].forEach(function (id) { document.getElementById(id).addEventListener('input', updateLinks); });
-  renderTabs(); renderRows(); renderSummary();
+
+  App.rerender = function () { renderRows(); renderSummary(); renderWelcome(); };
+  renderTabs(); renderRows(); renderSummary(); renderWelcome();
 });
 </script>
 </body>

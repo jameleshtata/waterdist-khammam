@@ -11,10 +11,10 @@
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+Telugu:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body data-title="Videos">
+<body>
 
 <div id="chrome-top"></div>
 <div id="banner" class="hidden"></div>
@@ -22,15 +22,15 @@
 
 <main class="wrap">
   <section class="intro rise">
-    <h1>Videos</h1>
-    <p>Brand adverts and product videos. Tap a video to play it.</p>
+    <h1 data-i18n="vid.h1"></h1>
+    <p data-i18n="vid.sub"></p>
   </section>
 
   <div class="vids" id="vids" style="margin-top:20px"></div>
-  <div id="noVids" class="empty hidden">No videos added yet.</div>
+  <div id="noVids" class="empty hidden" data-i18n="vid.none"></div>
 
   <ul class="linklist" id="official" style="display:none">
-    <li><a id="officialA" href="#" target="_blank" rel="noopener"><div><b id="officialT"></b><span>Opens tataconsumer.com</span></div><svg viewBox="0 0 24 24"><path d="M9 6 L15 12 L9 18"></path></svg></a></li>
+    <li><a id="officialA" href="#" target="_blank" rel="noopener"><div><b id="officialT"></b><span data-i18n="vid.official"></span></div><svg viewBox="0 0 24 24"><path d="M9 6 L15 12 L9 18"></path></svg></a></li>
   </ul>
 </main>
 
@@ -52,9 +52,11 @@ App.start('videos', function () {
     img.alt = ''; img.loading = 'lazy';
     img.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
     fr.appendChild(img);
-    var title = App.el('div', 'vid-title', v.title ? App.clean(v.title) : 'Watch video');
+    var title = App.el('div', 'vid-title');
+    if (v.title) { title.textContent = App.clean(v.title); }
+    else { title.setAttribute('data-i18n', 'vid.watch'); }
     var btn = App.el('button', 'vid-play'); btn.type = 'button';
-    btn.setAttribute('aria-label', 'Play video');
+    btn.setAttribute('data-i18n-aria', 'vid.play');
     btn.innerHTML = '<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#FFFFFF"></circle><path d="M26 20 L46 32 L26 44 Z" fill="#065961"></path></svg>';
     btn.onclick = function () {
       var f = document.createElement('iframe');
@@ -68,7 +70,8 @@ App.start('videos', function () {
     fr.appendChild(btn);
     card.appendChild(fr);
     card.appendChild(title);
-    var yt = App.el('a', 'vid-yt', 'Not playing? Watch on YouTube');
+    var yt = App.el('a', 'vid-yt');
+    yt.setAttribute('data-i18n', 'vid.yt');
     yt.href = 'https://www.youtube.com/watch?v=' + id;
     yt.target = '_blank'; yt.rel = 'noopener';
     card.appendChild(yt);
@@ -76,7 +79,9 @@ App.start('videos', function () {
     if (!v.title) {
       fetch('https://www.youtube.com/oembed?url=' + encodeURIComponent('https://www.youtube.com/watch?v=' + id) + '&format=json')
         .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (j) { if (j && j.title) title.textContent = App.clean(j.title); })
+        .then(function (j) {
+          if (j && j.title) { title.removeAttribute('data-i18n'); title.textContent = App.clean(j.title); }
+        })
         .catch(function () {});
     }
   });
@@ -85,9 +90,13 @@ App.start('videos', function () {
   var ol = App.cfg.officialLink || {};
   if (ol.url && /^https:\/\//.test(ol.url)) {
     document.getElementById('officialA').href = ol.url;
-    document.getElementById('officialT').textContent = ol.label || 'Official product page';
+    document.getElementById('officialT').textContent = App.pick(ol.label) || 'Official product page';
     document.getElementById('official').style.display = 'block';
   }
+  App.rerender = function () {
+    document.getElementById('officialT').textContent = App.pick(ol.label) || 'Official product page';
+  };
+  App.applyI18n();
 });
 </script>
 </body>

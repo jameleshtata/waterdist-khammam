@@ -3,8 +3,8 @@ html[data-theme="teal"]{--primary:#0B7A86;--primary-dark:#065961;--ink:#062F36;-
 html[data-theme="royal"]{--primary:#1E40AF;--primary-dark:#172B6B;--ink:#0F1B3D;--muted:#4B5675;--mist:#EEF3FF;--mist2:#D6E0FB;--aqua:#38BDF8;--cta:#F97316;--cta-ink:#0F1B3D;--footer-bg:#0F1B3D;--footer-accent:#FFB020}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:'DM Sans',system-ui,sans-serif;color:var(--ink);background:#FFFFFF;line-height:1.5;-webkit-text-size-adjust:100%}
-h1,h2,h3{font-family:'Sora',sans-serif;margin:0}
+body{margin:0;font-family:'DM Sans','Noto Sans Telugu',system-ui,sans-serif;color:var(--ink);background:#FFFFFF;line-height:1.5;-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:'Sora','Noto Sans Telugu',sans-serif;margin:0}
 a{color:var(--primary)}
 button,input{font-family:inherit}
 .wrap{max-width:960px;margin:0 auto;padding:0 16px}
@@ -18,16 +18,16 @@ button,input{font-family:inherit}
 
 /* header */
 .top{background:#FFFFFF;border-bottom:1px solid var(--mist2);position:sticky;top:0;z-index:40}
-.top-in{display:flex;align-items:center;gap:14px;padding-top:10px;padding-bottom:10px}
+.top-in{display:flex;align-items:center;gap:8px;padding-top:10px;padding-bottom:10px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);order:1;margin-right:auto;min-width:0}
 .brand svg{width:30px;height:30px;fill:none;stroke:var(--primary);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.brand-name{font-family:'Sora',sans-serif;font-weight:800;font-size:17px;line-height:1.15;overflow-wrap:anywhere}
+.brand-name{font-family:'Sora',sans-serif;font-weight:800;font-size:16px;line-height:1.15;overflow-wrap:break-word}
 .brand-tag{font-family:'DM Sans',sans-serif;font-weight:500;font-size:12px;color:var(--muted)}
 .nav{order:2;display:flex;gap:6px}
 .nav-i{display:flex;align-items:center;gap:6px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:700;font-size:15px}
 .nav-i svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .nav-i.on{background:var(--mist);color:var(--primary-dark)}
-.wa-icon{order:3;width:44px;height:44px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;flex:none}
+.wa-icon{order:5;width:40px;height:40px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;flex:none}
 
 /* intro */
 .intro{padding-top:22px;display:flex;flex-direction:column;gap:8px}
@@ -91,7 +91,7 @@ label.f{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:70
 .vid-title{font-weight:700;font-size:16px;line-height:1.35;margin-top:10px}
 
 /* contact, call, floating whatsapp */
-.call-icon{order:3;width:44px;height:44px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;flex:none}
+.call-icon{order:4;width:40px;height:40px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;flex:none}
 .call-icon svg{width:22px;height:22px;fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .call-link.off{opacity:.5;pointer-events:none}
 .price-note{margin:0 0 12px;padding:10px 14px;border-radius:12px;background:var(--mist);color:var(--primary-dark);font-size:14px;font-weight:700}
@@ -107,6 +107,21 @@ label.f{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:70
 @keyframes ping{0%{transform:scale(1);opacity:.55}80%,100%{transform:scale(1.7);opacity:0}}
 @keyframes wiggle{0%,86%,100%{transform:rotate(0)}90%{transform:rotate(-14deg)}94%{transform:rotate(12deg)}97%{transform:rotate(-8deg)}}
 .f-dim a{color:#FFFFFF;font-weight:700}
+
+/* language button and privacy page */
+.lang-sw{order:3;display:flex;flex:none;border:1.5px solid var(--primary);border-radius:999px;overflow:hidden;background:#FFFFFF}
+.lang-sw button{min-height:38px;padding:0 10px;border:0;background:transparent;color:var(--primary-dark);font-weight:700;font-size:13px;cursor:pointer}
+.lang-sw button.on{background:var(--primary);color:#FFFFFF}
+.te-only{display:none}
+html[lang="te"] .te-only{display:block}
+.summary-box{margin-top:18px;padding:16px 18px;border-radius:16px;background:var(--mist)}
+.summary-box h2{font-size:17px;margin:0 0 6px}
+.summary-box ul{margin:0;padding-left:20px}
+.legal-doc h2{font-size:18px;margin:26px 0 8px}
+.legal-doc p,.legal-doc li{font-size:15px;line-height:1.65}
+.legal-doc ul{padding-left:20px;margin:8px 0}
+.legal-doc{padding-bottom:12px}
+html[lang="te"] .brand-name{font-family:'Noto Sans Telugu','Sora',sans-serif}
 
 /* footer */
 footer{margin-top:28px;background:var(--footer-bg);color:#FFFFFF;padding:22px 0}
