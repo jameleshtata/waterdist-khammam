@@ -4,7 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Order water | Khammam</title>
-<meta name="description" content="Order bottled drinking water for shops and events in Khammam on WhatsApp.">
+<meta name="description" content="Order Tata bottled water for your shop or event in Khammam. Pick your bottles and send the order on WhatsApp.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Order bottled water in Khammam">
+<meta property="og:description" content="Order Tata bottled water for your shop or event in Khammam. Pick your bottles and send the order on WhatsApp.">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
@@ -29,7 +33,10 @@
     <li><b>3</b>We deliver</li>
   </ol>
 
+  <p class="price-note" style="margin-top:14px" data-cfg="deliveryNote" data-hide-empty></p>
+
   <h2 class="h2">Choose your bottles</h2>
+  <p class="price-note" data-cfg="priceNote"></p>
   <div class="tabs" id="tabs" role="tablist"></div>
   <div class="rows" id="rows"></div>
 
@@ -94,7 +101,8 @@ App.start('home', function () {
     var text = "Hello, I'd like to place an order.\n\nShop/Event: " + (document.getElementById('shop').value.trim() || '-') +
       '\nAddress/Area: ' + (document.getElementById('area').value.trim() || '-') +
       '\n\nItems:\n' + (lines.join('\n') || '-') +
-      '\n\nNotes: ' + (document.getElementById('note').value.trim() || '-');
+      '\n\nNotes: ' + (document.getElementById('note').value.trim() || '-') +
+      '\n\nPlease confirm the price and delivery time.';
     var href = App.waBase() + encodeURIComponent(text);
     document.querySelectorAll('.wa-order').forEach(function (a) { a.href = href; });
   }

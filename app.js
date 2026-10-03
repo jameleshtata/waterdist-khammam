@@ -50,6 +50,21 @@
     return 'https://wa.me/?text=';
   };
 
+  App.callHref = function () {
+    var d = String(App.cfg.callNumber || '').replace(/\D/g, '');
+    if (!d && App.numberIsSet()) d = String(App.cfg.whatsappNumber).replace(/\D/g, '');
+    if (d.length < 10) return '';
+    if (d.length === 10) d = '91' + d;
+    return 'tel:+' + d;
+  };
+
+  App.updateCall = function () {
+    var h = App.callHref();
+    document.querySelectorAll('.call-link').forEach(function (a) {
+      if (h) { a.href = h; a.classList.remove('off'); } else { a.removeAttribute('href'); a.classList.add('off'); }
+    });
+  };
+
   App.updateGeneric = function () {
     var link = App.waBase() + encodeURIComponent("Hello, I'd like to place an order.");
     document.querySelectorAll('.wa-link').forEach(function (a) { a.href = link; });
@@ -134,17 +149,29 @@
         '<header class="top"><div class="wrap top-in">' +
         '<a class="brand" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 C12 3 5 10.5 5 15 a7 7 0 0 0 14 0 C19 10.5 12 3 12 3 Z"></path><path d="M9 15 a3 3 0 0 0 3 3"></path></svg>' +
         '<div><div class="brand-name" data-cfg="businessName"></div><div class="brand-tag" data-cfg="tagline"></div></div></a>' +
+        '<a class="call-icon call-link" href="#" aria-label="Call us"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"></path></svg></a>' +
         '<a class="wa-icon wa-link" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg class="ico-wa" style="width:24px;height:24px"><use href="#wa"></use></svg></a>' +
         '<nav class="nav" aria-label="Main">' + nav + '</nav>' +
         '</div></header>';
     }
     var foot = document.getElementById('foot');
     if (foot) {
+      foot.insertAdjacentHTML('beforebegin',
+        '<section class="wrap"><div class="contact-card">' +
+        '<h3>Price and orders</h3><p data-cfg="priceNote"></p>' +
+        '<div class="contact-btns">' +
+        '<a class="btn-wa wa-link" href="#" target="_blank" rel="noopener"><svg class="ico-wa"><use href="#wa"></use></svg>Message on WhatsApp</a>' +
+        '<a class="btn-call call-link" href="#"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"></path></svg>Call us</a>' +
+        '</div></div></section>');
+    }
+    document.body.insertAdjacentHTML('beforeend',
+      '<a class="fab wa-link" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg class="ico-wa" style="width:28px;height:28px"><use href="#wa"></use></svg></a>');
+    if (foot) {
       foot.innerHTML =
         '<footer><div class="wrap">' +
         '<div class="f-name" data-cfg="businessName"></div>' +
         '<div class="f-dim"><span data-cfg="authorisedText"></span> · <span data-cfg="region"></span></div>' +
-        '<div class="f-dim">WhatsApp <span data-cfg="phoneDisplay"></span> · Order hours <span data-cfg="orderHours"></span></div>' +
+        '<div class="f-dim">Call <a class="call-link" data-cfg="phoneDisplay"></a> · Order hours <span data-cfg="orderHours"></span></div>' +
         '<div class="f-dim">Address <span data-cfg="address"></span> · FSSAI licence no. <span data-cfg="fssai"></span></div>' +
         '<div class="legal">Product names and brand marks belong to their owners. No brand logos or product photos are used unless supplied by the brand owner.</div>' +
         '</div></footer>';
@@ -156,7 +183,10 @@
     document.documentElement.setAttribute('data-theme', cfg.theme === 'royal' ? 'royal' : 'teal');
     var pageTitle = document.body.getAttribute('data-title') || '';
     document.title = (pageTitle ? pageTitle + ' | ' : '') + (cfg.businessName || 'Water Supply') + ' ' + (cfg.region ? '| ' + cfg.region : '');
-    document.querySelectorAll('[data-cfg]').forEach(function (n) { n.textContent = get(cfg, n.getAttribute('data-cfg')); });
+    document.querySelectorAll('[data-cfg]').forEach(function (n) {
+      n.textContent = get(cfg, n.getAttribute('data-cfg'));
+      if (n.hasAttribute('data-hide-empty') && !n.textContent) n.classList.add('hidden');
+    });
     var b = document.getElementById('banner');
     if (b) {
       var msgs = [];
@@ -166,6 +196,7 @@
       if (msgs.length) { b.textContent = msgs.join('  ·  '); b.classList.remove('hidden'); }
     }
     App.updateGeneric();
+    App.updateCall();
   }
 
   function fetchJSON(path, optional) {

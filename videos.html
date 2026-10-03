@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Videos | Khammam</title>
+<meta name="description" content="Brand adverts and product videos for bottled water in Khammam.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Videos | Water supply in Khammam">
+<meta property="og:description" content="Brand adverts and product videos for bottled water in Khammam.">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
@@ -63,6 +68,10 @@ App.start('videos', function () {
     fr.appendChild(btn);
     card.appendChild(fr);
     card.appendChild(title);
+    var yt = App.el('a', 'vid-yt', 'Not playing? Watch on YouTube');
+    yt.href = 'https://www.youtube.com/watch?v=' + id;
+    yt.target = '_blank'; yt.rel = 'noopener';
+    card.appendChild(yt);
     box.appendChild(card);
     if (!v.title) {
       fetch('https://www.youtube.com/oembed?url=' + encodeURIComponent('https://www.youtube.com/watch?v=' + id) + '&format=json')
